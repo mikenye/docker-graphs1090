@@ -70,7 +70,7 @@ RUN set -x && \
         && \
     apt-get autoremove -y && \
     apt-get clean -y && \
-    rm -rf /var/lib/apt/lists/*
+    rm -rf /src /tmp/* /var/lib/apt/lists/*
 
 # Copy config files
 COPY etc/ /etc/
