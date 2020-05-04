@@ -68,7 +68,7 @@ You should now be able to browse to http://dockerhost:8080 to access the `graphs
 
 An example `docker-compose.xml` file is below:
 
-```shell
+```yaml
 version: '2.0'
 
 volumes:
