@@ -24,6 +24,8 @@ It builds and runs on `linux/amd64`, `linux/arm/v7` and `linux/arm64` (see below
 
 You will need a source of Beast data. This could be an RPi running PiAware, the [`mikenye/piaware`](https://hub.docker.com/r/mikenye/piaware) image or [`mikenye/readsb`](https://hub.docker.com/r/mikenye/readsb).
 
+Optionally, you will need a source of MLAT data. This could be an RPi running PiAware, the [`mikenye/piaware`](https://hub.docker.com/r/mikenye/piaware) image, or any other host/container running `mlat-client` that is configured to *listen* for Beast connections.
+
 ## Up-and-Running with `docker run`
 
 ```shell
@@ -40,7 +42,8 @@ docker run -d \
 
 Replacing:
 * `TIMEZONE` with your timezone
-* `BEASTHOST` with the IP address of a host that can provide Beast data
+* `BEASTHOST` with the IP address/hostname of a host that can provide Beast data
+* `MLATHOST` with the IP address/hostname of a host that can provide MLAT data
 * `LAT` with your antenna's latitude (optional, but required for range graph)
 * `LONG` with your antenna's longitude (optional, but required for range graph)
 
