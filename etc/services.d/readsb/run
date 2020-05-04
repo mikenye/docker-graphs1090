@@ -1,0 +1,29 @@
+#!/usr/bin/with-contenv bash
+#shellcheck shell=bash
+
+# Build the dump1090 command line based on piaware options
+READSB_BIN="/usr/local/bin/readsb"
+READSB_CMD=(--net-only)
+READSB_CMD+=(--quiet)
+
+if [ ! -z "${LAT}" ]; then
+    READSB_CMD+=(--lat "${LAT}")
+fi
+
+if [ ! -z "${LONG}" ]; then
+    READSB_CMD+=(--lon "${LONG}")
+fi
+
+READSB_CMD+=(--net-connector=${BEASTHOST},${BEASTPORT},beast_in)
+
+if [ ! -z "${MLATHOST}" ]; then
+    READSB_CMD+=(--net-connector=${MLATHOST},${MLATPORT},beast_in)
+fi
+
+READSB_CMD+=(--stats-every=3600)
+READSB_CMD+=(--stats-range)
+
+READSB_CMD+=(--write-json=/usr/share/graphs1090/data-symlink/data)
+READSB_CMD+=(--write-json-every=1)
+
+"${READSB_BIN}" "${READSB_CMD[@]}" 2>&1 | awk -W Interactive '{print "[readsb] " $0}'
