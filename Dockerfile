@@ -40,6 +40,7 @@ RUN set -x && \
         https://github.com/wiedehopf/graphs1090.git \
         /usr/share/graphs1090/git \
         && \
+    git log | head -1 | tr -s " " "_" | tee /VERSION && \
     cp -v /usr/share/graphs1090/git/dump1090.db /usr/share/graphs1090/ && \
     cp -v /usr/share/graphs1090/git/dump1090.py /usr/share/graphs1090/ && \
     cp -v /usr/share/graphs1090/git/system_stats.py /usr/share/graphs1090/ && \
