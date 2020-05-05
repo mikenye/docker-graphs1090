@@ -71,6 +71,9 @@ An example `docker-compose.xml` file is below:
 ```yaml
 version: '2.0'
 
+networks:
+  adsbnet:
+
 volumes:
   graphs1090_rrd:
 
@@ -90,6 +93,8 @@ services:
       - TZ=Australia/Perth
       - LAT=-33.33333
       - LONG=111.11111
+    networks:
+      - adsbnet
 ```
 
 You should now be able to browse to http://dockerhost:8080 to access the `graphs1090` web interface.
