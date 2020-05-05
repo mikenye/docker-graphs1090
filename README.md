@@ -79,7 +79,7 @@ volumes:
 
 services:
   graphs1090:
-    image: graphs1090:latest
+    image: mikenye/graphs1090:latest
     tty: true
     container_name: graphs1090
     restart: always
