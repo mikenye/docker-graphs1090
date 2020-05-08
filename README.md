@@ -6,7 +6,7 @@ This container receives:
 * Beast data from a provider such as `dump1090` or `readsb`
 * Optionally, MLAT data from a provider such as `mlat-client` (if you want to see MLAT statistics)
 
-It builds and runs on `linux/amd64`, `linux/arm/v7` and `linux/arm64` (see below).
+It builds and runs on `linux/amd64`, `linux/arm/v6`, `linux/arm/v7` and `linux/arm64` (see below).
 
 ## Supported tags and respective Dockerfiles
 
@@ -16,9 +16,10 @@ It builds and runs on `linux/amd64`, `linux/arm/v7` and `linux/arm64` (see below
 
 ## Multi Architecture Support
 
-* `linux/amd64` (`x86_64`): Built on Linux x86-64
-* `linux/arm/v7` (`armv7l`, `armhf`, `arm32v7`): Built on Odroid HC2 running ARMv7 32-bit
-* `linux/arm64` (`aarch64`, `arm64v8`): Built on a Raspberry Pi 4 Model B running ARMv8 64-bit
+* `linux/amd64`: Built on Linux x86-64
+* `linux/arm/v6`: Built on Odroid HC2 running ARMv7 32-bit
+* `linux/arm/v7`: Built on Odroid HC2 running ARMv7 32-bit
+* `linux/arm64`: Built on a Raspberry Pi 4 Model B running ARMv8 64-bit
 
 ## Prerequisites
 
@@ -138,6 +139,10 @@ All logs are to the container's stdout and can be viewed with `docker logs [-f] 
 Please feel free to [open an issue on the project's GitHub](https://github.com/mikenye/docker-graphs1090/issues).
 
 ## Changelog
+
+### 20200508
+
+* Add `linux/arm/v6` architecture support
 
 ### 20200504
 
