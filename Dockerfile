@@ -12,6 +12,7 @@ RUN set -x && \
         ca-certificates \
         collectd-core \
         curl \
+        file \
         gcc \
         git \
         libc-dev \
@@ -62,6 +63,7 @@ RUN set -x && \
     # Clean up
     apt-get remove -y \
         curl \
+        file \
         gcc \
         git \
         libc-dev \
