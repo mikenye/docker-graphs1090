@@ -30,7 +30,7 @@ RUN set -x && \
     cd /src/readsb && \
     git checkout tags/"${BRANCH_READSB}" && \
     echo "readsb ${BRANCH_READSB}" >> /VERSIONS && \
-    make && \
+    make OPTIMIZE="-O3" && \
     mv viewadsb /usr/local/bin/ && \
     mv readsb /usr/local/bin/ && \
     mkdir -p /run/readsb && \
