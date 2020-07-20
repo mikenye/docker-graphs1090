@@ -15,13 +15,13 @@ fi
 
 # If LAT/LONG are given in isolation...
 if [ -z "${LAT}" ]; then
-  if [ ! -z "${LONG}" ]; then
+  if [ -n "${LONG}" ]; then
     echo -e "${LIGHTRED}ERROR: Both LAT & LONG environment variables required${NOCOLOR}"
     EXITCODE=1
   fi
 fi
 if [ -z "${LONG}" ]; then
-  if [ ! -z "${LAT}" ]; then
+  if [ -n "${LAT}" ]; then
     echo -e "${LIGHTRED}ERROR: Both LAT & LONG environment variables required${NOCOLOR}"
     EXITCODE=1
   fi
