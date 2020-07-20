@@ -17,6 +17,7 @@ RUN set -x && \
         file \
         gcc \
         git \
+        gnupg2 \
         libc-dev \
         libpython2.7 \
         libpython3.7-minimal \
