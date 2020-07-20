@@ -3,6 +3,7 @@
 [`graphs1090`](https://github.com/wiedehopf/graphs1090) is an excellent tool by [wiedehopf](https://github.com/wiedehopf) that generates graphs for `dump1090`/`readsb` and their variants.
 
 This container receives:
+
 * Beast data from a provider such as `dump1090` or `readsb`
 * Optionally, MLAT data from a provider such as `mlat-client` (if you want to see MLAT statistics)
 
@@ -42,6 +43,7 @@ docker run -d \
 ```
 
 Replacing:
+
 * `TIMEZONE` with your timezone
 * `BEASTHOST` with the IP address/hostname of a host that can provide Beast data
 * `MLATHOST` with the IP address/hostname of a host that can provide MLAT data
@@ -63,7 +65,7 @@ docker run -d \
     mikenye/graphs1090:latest
 ```
 
-You should now be able to browse to http://dockerhost:8080 to access the `graphs1090` web interface.
+You should now be able to browse to <http://dockerhost:8080> to access the `graphs1090` web interface.
 
 ## Up-and-Running with `docker-compose`
 
@@ -98,13 +100,14 @@ services:
       - adsbnet
 ```
 
-You should now be able to browse to http://dockerhost:8080 to access the `graphs1090` web interface.
+You should now be able to browse to <http://dockerhost:8080> to access the `graphs1090` web interface.
 
 ## Ports
 
 ### Outgoing
 
 This container will try to connect to:
+
 * `BEASTHOST` on TCP port `30005` by default. This can be changed by setting the `BEASTPORT` environment variable.
 * If specified, `MLATHOST` on TCP port `30105` by default. This can be changed by setting the `MLATPORT` environment variable.
 

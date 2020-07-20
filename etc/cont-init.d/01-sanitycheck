@@ -2,9 +2,7 @@
 #shellcheck shell=bash
 
 NOCOLOR='\033[0m'
-YELLOW='\033[1;33m'
 LIGHTRED='\033[1;31m'
-LIGHTBLUE='\033[1;34m'
 
 # Check to make sure the correct command line arguments have been set
 EXITCODE=0
@@ -15,13 +13,13 @@ fi
 
 # If LAT/LONG are given in isolation...
 if [ -z "${LAT}" ]; then
-  if [ ! -z "${LONG}" ]; then
+  if [ -n "${LONG}" ]; then
     echo -e "${LIGHTRED}ERROR: Both LAT & LONG environment variables required${NOCOLOR}"
     EXITCODE=1
   fi
 fi
 if [ -z "${LONG}" ]; then
-  if [ ! -z "${LAT}" ]; then
+  if [ -n "${LAT}" ]; then
     echo -e "${LIGHTRED}ERROR: Both LAT & LONG environment variables required${NOCOLOR}"
     EXITCODE=1
   fi
@@ -31,4 +29,4 @@ if [ $EXITCODE -ne 0 ]; then
   exit 1
 fi
 
-ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
+ln -snf "/usr/share/zoneinfo/$TZ" /etc/localtime && echo "$TZ" > /etc/timezone

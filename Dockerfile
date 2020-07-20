@@ -6,6 +6,8 @@ ENV BRANCH_READSB=v3.8.3 \
     TZ=UTC \
     MLATPORT=30105
 
+SHELL ["/bin/bash", "-o", "pipefail", "-c"]
+
 RUN set -x && \
     apt-get update -y && \
     apt-get install -y --no-install-recommends \
@@ -15,6 +17,7 @@ RUN set -x && \
         file \
         gcc \
         git \
+        gnupg2 \
         libc-dev \
         libpython2.7 \
         libpython3.7-minimal \
@@ -27,13 +30,14 @@ RUN set -x && \
         && \
     # Install readsb
     git clone https://github.com/Mictronics/readsb.git /src/readsb && \
-    cd /src/readsb && \
+    pushd /src/readsb && \
     git checkout tags/"${BRANCH_READSB}" && \
     echo "readsb ${BRANCH_READSB}" >> /VERSIONS && \
     make OPTIMIZE="-O3" && \
     mv viewadsb /usr/local/bin/ && \
     mv readsb /usr/local/bin/ && \
     mkdir -p /run/readsb && \
+    popd && \
     # Deploy graphs1090
     git clone \
         -b master \
@@ -41,6 +45,7 @@ RUN set -x && \
         https://github.com/wiedehopf/graphs1090.git \
         /usr/share/graphs1090/git \
         && \
+    pushd /usr/share/graphs1090/git && \
     git log | head -1 | tr -s " " "_" | tee /VERSION && \
     cp -v /usr/share/graphs1090/git/dump1090.db /usr/share/graphs1090/ && \
     cp -v /usr/share/graphs1090/git/dump1090.py /usr/share/graphs1090/ && \
@@ -58,6 +63,7 @@ RUN set -x && \
     mkdir -p /var/lib/collectd/rrd/localhost/dump1090-localhost && \
     mkdir -p /usr/share/graphs1090/data-symlink/data && \
     mkdir -p /run/graphs1090 && \
+    popd && \
     # Deploy s6-overlay
     curl -s https://raw.githubusercontent.com/mikenye/deploy-s6-overlay/master/deploy-s6-overlay.sh | sh && \
     # Clean up
@@ -66,6 +72,7 @@ RUN set -x && \
         file \
         gcc \
         git \
+        gnupg2 \
         libc-dev \
         make \
         ncurses-dev \
