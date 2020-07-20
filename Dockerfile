@@ -44,6 +44,7 @@ RUN set -x && \
         https://github.com/wiedehopf/graphs1090.git \
         /usr/share/graphs1090/git \
         && \
+    pushd /usr/share/graphs1090/git && \
     git log | head -1 | tr -s " " "_" | tee /VERSION && \
     cp -v /usr/share/graphs1090/git/dump1090.db /usr/share/graphs1090/ && \
     cp -v /usr/share/graphs1090/git/dump1090.py /usr/share/graphs1090/ && \
@@ -61,6 +62,7 @@ RUN set -x && \
     mkdir -p /var/lib/collectd/rrd/localhost/dump1090-localhost && \
     mkdir -p /usr/share/graphs1090/data-symlink/data && \
     mkdir -p /run/graphs1090 && \
+    popd && \
     # Deploy s6-overlay
     curl -s https://raw.githubusercontent.com/mikenye/deploy-s6-overlay/master/deploy-s6-overlay.sh | sh && \
     # Clean up
