@@ -72,6 +72,7 @@ RUN set -x && \
         file \
         gcc \
         git \
+        gnupg2 \
         libc-dev \
         make \
         ncurses-dev \
