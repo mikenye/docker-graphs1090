@@ -6,6 +6,8 @@ ENV BRANCH_READSB=v3.8.3 \
     TZ=UTC \
     MLATPORT=30105
 
+SHELL ["/bin/bash", "-o", "pipefail", "-c"]
+
 RUN set -x && \
     apt-get update -y && \
     apt-get install -y --no-install-recommends \
@@ -27,13 +29,14 @@ RUN set -x && \
         && \
     # Install readsb
     git clone https://github.com/Mictronics/readsb.git /src/readsb && \
-    cd /src/readsb && \
+    pushd /src/readsb && \
     git checkout tags/"${BRANCH_READSB}" && \
     echo "readsb ${BRANCH_READSB}" >> /VERSIONS && \
     make OPTIMIZE="-O3" && \
     mv viewadsb /usr/local/bin/ && \
     mv readsb /usr/local/bin/ && \
     mkdir -p /run/readsb && \
+    popd && \
     # Deploy graphs1090
     git clone \
         -b master \
