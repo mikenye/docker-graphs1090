@@ -238,10 +238,4 @@ I also have a [Discord channel](https://discord.gg/sTf9uYF), feel free to [join]
 
 ## Changelog
 
-### 20200508
-
-* Add `linux/arm/v6` architecture support
-
-### 20200504
-
-* Original Image
+See the project's [commit history](https://github.com/mikenye/docker-graphs1090/commits/master) for all changes.
