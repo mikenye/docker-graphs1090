@@ -2,9 +2,9 @@
 
 [`graphs1090`](https://github.com/wiedehopf/graphs1090) is an excellent tool by [wiedehopf](https://github.com/wiedehopf) that generates graphs for `dump1090`/`readsb` and their variants.
 
-This container receives:
+This container can receive:
 
-* Beast data from a provider such as `dump1090` or `readsb`
+* Beast data from a provider such as `dump1090` or `readsb`, either via network or via a shared docker volume
 * Optionally, MLAT data from a provider such as `mlat-client` (if you want to see MLAT statistics)
 
 It builds and runs on `linux/amd64`, `linux/arm/v6`, `linux/arm/v7` and `linux/arm64` (see below).
@@ -99,6 +99,83 @@ services:
     networks:
       - adsbnet
 ```
+
+You should now be able to browse to <http://dockerhost:8080> to access the `graphs1090` web interface.
+
+## Up-and-Running with `docker-compose`, with `mikenye/readsb`
+
+This example uses a shared docker volume to provide the required JSON data into `graphs1090`. This approach offers the following benefits over using `BEASTHOST`:
+
+* Less CPU utilisation
+* The `Messages > -3dBFS` value will be populated
+
+An example `docker-compose.xml` file is below:
+
+```yaml
+version: '2.0'
+
+networks:
+  adsbnet:
+
+volumes:
+  graphs1090_rrd:
+  readsb_json:
+
+services:
+
+  readsb:
+    image: mikenye/readsb:latest
+    tty: true
+    container_name: readsb
+    restart: always
+    devices:
+      - /dev/bus/usb:/dev/bus/usb
+    volumes:
+      - readsb_json:/run/readsb
+    ports:
+      - 8081:8080
+      - 30003:30003
+      - 30005:30005
+    networks:
+      - adsbnet
+    environment:
+      - TZ=Australia/Perth
+    command:
+      - --dcfilter
+      - --device-type=rtlsdr
+      - --gain=36.4
+      - --fix
+      - --json-location-accuracy=2
+      - --lat=-xx.xxxxx
+      - --lon=xxx.xxxxx
+      - --modeac
+      - --ppm=0
+      - --net
+      - --stats-every=3600
+      - --quiet
+      - --write-json=/run/readsb
+
+  graphs1090:
+    image: mikenye/graphs1090:latest
+    tty: true
+    container_name: graphs1090
+    restart: always
+    volumes:
+      - graphs1090_rrd:/var/lib/collectd/rrd
+      - readsb_json:/data:ro
+    ports:
+      - 8080:80
+    environment:
+      - TZ=Australia/Perth
+      - LAT=-33.33333
+      - LONG=111.11111
+    networks:
+      - adsbnet
+
+  ...other services...
+```
+
+The docker volume `readsb_json` will be shared by both containers. The `readsb` container will write the required JSON files into the volume. Those files will then be read by `graphs1090`.
 
 You should now be able to browse to <http://dockerhost:8080> to access the `graphs1090` web interface.
 

@@ -4,7 +4,8 @@ ENV BRANCH_READSB=v3.8.3 \
     BEASTPORT=30005 \
     S6_BEHAVIOUR_IF_STAGE2_FAILS=2 \
     TZ=UTC \
-    MLATPORT=30105
+    MLATPORT=30105 \
+    DATAPATH=/data
 
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
@@ -61,7 +62,8 @@ RUN set -x && \
     sed -i -e "s/__cache_version__/$(date +%s | tail -c5)/g" /usr/share/graphs1090/html/index.html && \
     mkdir -p /usr/share/graphs1090/data-symlink && \
     mkdir -p /var/lib/collectd/rrd/localhost/dump1090-localhost && \
-    mkdir -p /usr/share/graphs1090/data-symlink/data && \
+    mkdir -p /data && \
+    ln -s /data /usr/share/graphs1090/data-symlink/data && \
     mkdir -p /run/graphs1090 && \
     popd && \
     # Deploy s6-overlay

@@ -6,8 +6,8 @@ LIGHTRED='\033[1;31m'
 
 # Check to make sure the correct command line arguments have been set
 EXITCODE=0
-if [ -z "${BEASTHOST}" ]; then
-  echo -e "${LIGHTRED}ERROR: BEASTHOST environment variable not set${NOCOLOR}"
+if [[ -z "${BEASTHOST}" || ! -e "${DATAPATH}/stats.json" ]]; then
+  echo -e "${LIGHTRED}ERROR: No datasources! BEASTHOST environment variable not set and no ${DATAPATH}/stats.json file present!${NOCOLOR}"
   EXITCODE=1
 fi
 
