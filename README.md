@@ -143,6 +143,7 @@ services:
       - adsbnet
     environment:
       - TZ=Australia/Perth
+      - PULLMLAT=piaware:30105,adsbx:30105,rbfeeder:30105
     command:
       - --dcfilter
       - --device-type=rtlsdr
@@ -156,6 +157,7 @@ services:
       - --net
       - --stats-every=3600
       - --quiet
+      - --net-connector=127.0.0.1,30105,beast_in
       - --write-json=/run/readsb
     volumes:
       - readsb_json:/run/readsb
@@ -181,6 +183,8 @@ services:
 ```
 
 The docker volume `readsb_json` is the shared volume by both containers. The `readsb` container will write the required JSON files into the volume. Those files will then be read by `graphs1090`.
+
+The `readsb` container is configured to pull MLAT data (via the `PULLMLAT` environment variable) from containers that implement MLAT. This MLAT data is available via port `30105`. We then feed this data back into the `readsb` instance with `--net-connector=127.0.0.1,30105,beast_in`, so the MLAT statistics appear in the JSON output. If running with this method, it is imparative that `--forward-mlat` is NOT passed as a command line argument to `readsb`.
 
 You should now be able to browse to <http://dockerhost:8080> to access the `graphs1090` web interface.
 
