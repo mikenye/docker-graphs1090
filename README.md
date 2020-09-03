@@ -208,7 +208,7 @@ This container accepts HTTP connections on TCP port `80` by default. You can cha
 
 | Environment Variable | Purpose | Default |
 |----------------------|---------|---------|
-| BEASTHOST | Required. IP/Hostname of a Mode-S/Beast provider (`dump1090`/`readsb`) | |
+| BEASTHOST | Optional. IP/Hostname of a Mode-S/Beast provider (`dump1090`/`readsb`) | |
 | BEASTPORT | Optional. TCP port number of Mode-S/Beast provider (`dump1090`/`readsb`) | `30005` |
 | MLATHOST | Optional. IP/Hostname of an MLAT provider | |
 | MLATPORT | Optional. TCP port number of MLAT provider | `30105` |
