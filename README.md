@@ -69,7 +69,7 @@ You should now be able to browse to <http://dockerhost:8080> to access the `grap
 
 ## Up-and-Running with `docker-compose`
 
-An example `docker-compose.xml` file is below:
+An example `docker-compose.yml` file is below:
 
 ```yaml
 version: '2.0'
@@ -114,7 +114,7 @@ The shared docker volume should:
 * Be mounted read/write into the `readsb` container at the path specified by the `--write-json` argument
 * Be mounted read-only into the `graphs1090` at `/data`
 
-An example `docker-compose.xml` file is below:
+An example `docker-compose.yml` file is below:
 
 ```yaml
 version: '2.0'
