@@ -19,9 +19,10 @@ fi
 if [[ "$NO_BEAST_DATA" -eq 1 && "$NO_JSON_DATA" -eq 1 ]]; then
   echo -e "${LIGHTRED}ERROR: No datasources! BEASTHOST/MLATHOST environment variable not set and no ${DATAPATH}/stats.json file present!${NOCOLOR}"
   EXITCODE=1
-elif [[ "$NO_BEAST_DATA" -eq 0 && "$NO_JSON_DATA" -eq 0 ]]; then
-  echo -e "${LIGHTRED}ERROR: Two datasources! Please use either BEASTHOST/MLATHOST environment variable OR ${DATAPATH}/stats.json file, not both.${NOCOLOR}"
-  EXITCODE=1
+# Below commented out to issue #16
+# elif [[ "$NO_BEAST_DATA" -eq 0 && "$NO_JSON_DATA" -eq 0 ]]; then
+#   echo -e "${LIGHTRED}ERROR: Two datasources! Please use either BEASTHOST/MLATHOST environment variable OR ${DATAPATH}/stats.json file, not both.${NOCOLOR}"
+#   EXITCODE=1
 fi
 
 # If LAT/LONG are given in isolation...
