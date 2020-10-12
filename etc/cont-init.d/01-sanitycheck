@@ -8,7 +8,7 @@ LIGHTRED='\033[1;31m'
 EXITCODE=0
 NO_BEAST_DATA=0
 NO_JSON_DATA=0
-if [[ -z "${BEASTHOST}" || -z "${MLATHOST}" ]]; then
+if [[ -z "${BEASTHOST}" && -z "${MLATHOST}" ]]; then
   NO_BEAST_DATA=1
 fi
 
