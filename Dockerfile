@@ -9,6 +9,9 @@ ENV BRANCH_READSB=v3.8.3 \
 
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
+# Copy config files
+COPY etc/ /etc/
+
 RUN set -x && \
     apt-get update -y && \
     apt-get install -y --no-install-recommends \
@@ -48,6 +51,7 @@ RUN set -x && \
         && \
     pushd /usr/share/graphs1090/git && \
     git log | head -1 | tr -s " " "_" | tee /VERSION && \
+    git log | head -1 | tr -s " " "_" | cut -c1-14 > /CONTAINER_VERSION && \
     cp -v /usr/share/graphs1090/git/dump1090.db /usr/share/graphs1090/ && \
     cp -v /usr/share/graphs1090/git/dump1090.py /usr/share/graphs1090/ && \
     cp -v /usr/share/graphs1090/git/system_stats.py /usr/share/graphs1090/ && \
@@ -66,6 +70,9 @@ RUN set -x && \
     ln -s /data /usr/share/graphs1090/data-symlink/data && \
     mkdir -p /run/graphs1090 && \
     popd && \
+    # Copy nginx config
+    mv -v /etc/nginx.graphs1090/* /etc/nginx/ && \
+    rmdir /etc/nginx.graphs1090 && \
     # Deploy s6-overlay
     curl -s https://raw.githubusercontent.com/mikenye/deploy-s6-overlay/master/deploy-s6-overlay.sh | sh && \
     # Clean up
@@ -82,9 +89,6 @@ RUN set -x && \
     apt-get autoremove -y && \
     apt-get clean -y && \
     rm -rf /src /tmp/* /var/lib/apt/lists/*
-
-# Copy config files
-COPY etc/ /etc/
 
 ENTRYPOINT [ "/init" ]
 
