@@ -10,7 +10,7 @@ ENV BRANCH_READSB=v3.8.3 \
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
 # Copy config files
-COPY etc/ /etc/
+COPY rootfs/ /
 
 RUN set -x && \
     apt-get update -y && \
