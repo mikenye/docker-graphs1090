@@ -71,8 +71,8 @@ RUN set -x && \
     mkdir -p /run/graphs1090 && \
     popd && \
     # Copy nginx config
-    mv -v /etc/nginx.graphs1090/* /etc/nginx/ && \
-    rmdir /etc/nginx.graphs1090 && \
+    cp -Rv /etc/nginx.graphs1090/* /etc/nginx/ && \
+    rm -rf /etc/nginx.graphs1090 && \
     # Deploy s6-overlay
     curl -s https://raw.githubusercontent.com/mikenye/deploy-s6-overlay/master/deploy-s6-overlay.sh | sh && \
     # Clean up
