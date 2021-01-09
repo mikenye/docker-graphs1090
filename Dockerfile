@@ -74,7 +74,8 @@ RUN set -x && \
     cp -Rv /etc/nginx.graphs1090/* /etc/nginx/ && \
     rm -rf /etc/nginx.graphs1090 && \
     # Deploy s6-overlay
-    curl -s https://raw.githubusercontent.com/mikenye/deploy-s6-overlay/master/deploy-s6-overlay.sh | sh && \
+    curl -o /tmp/deploy-s6-overlay.sh https://raw.githubusercontent.com/mikenye/deploy-s6-overlay/master/deploy-s6-overlay.sh && \
+    bash -x /tmp/deploy-s6-overlay.sh && \
     # Clean up
     apt-get remove -y \
         curl \
