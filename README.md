@@ -9,6 +9,12 @@ This container can receive:
 
 It builds and runs on `linux/amd64`, `linux/arm/v6`, `linux/arm/v7` and `linux/arm64` (see below).
 
+## Deprecation notice
+
+The author of `readsb` (Mictronics) is no longer developing `readsb`, and instead all future development efforts will go into the Protocol Buffer version (`readsb-protobuf`) starting with version v4.0.0 (see [here](https://github.com/Mictronics/readsb#no-longer-under-development)).
+
+I would recommend migrating to the container: [`mikenye/readsb-protobuf`](https://github.com/mikenye/docker-readsb-protobuf) instead of continuing to use this container paired with a legacy ADS-B receiver that uses JSON files. `readsb-protobuf` contains "Performance Graphs" built into its web interface, which replaces `graphs1090`.
+
 ## Supported tags and respective Dockerfiles
 
 * `latest` should always contain the latest released version of `graphs1090`. This image is built nightly from the `master` branch `Dockerfile` for all supported architectures.
